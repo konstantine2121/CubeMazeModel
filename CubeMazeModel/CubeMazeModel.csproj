@@ -52,6 +52,10 @@
     <Compile Include="Model\Cell.cs" />
     <Compile Include="Model\Cube.cs" />
     <Compile Include="Model\Face.cs" />
+    <Compile Include="Printers\BasePrinter.cs" />
+    <Compile Include="Printers\CellPrinter.cs" />
+    <Compile Include="Printers\CubePrinter.cs" />
+    <Compile Include="Printers\FacePrinter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
