@@ -51,7 +51,6 @@
     <Compile Include="Model\BaseCellContainer.cs" />
     <Compile Include="Model\Cell.cs" />
     <Compile Include="Model\Cube.cs" />
-    <Compile Include="Model\CubeBuilder.cs" />
     <Compile Include="Model\Face.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

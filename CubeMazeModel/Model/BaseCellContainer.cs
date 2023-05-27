@@ -41,7 +41,7 @@ namespace CubeMazeModel.Model
             }
         }
 
-        protected Cell MoveFewSteps(int numberOfSteps, Cell origin, Direction direction)
+        public static Cell MoveFewSteps(int numberOfSteps, Cell origin, Direction direction)
         {
             for (int i = 0; i < Math.Abs(numberOfSteps); i++)
             {
@@ -51,7 +51,7 @@ namespace CubeMazeModel.Model
             return origin;
         }
 
-        protected Cell Move(Cell cell, Direction direction)
+        public static Cell Move(Cell cell, Direction direction)
         {
             return cell.Neighbours[direction];
         }

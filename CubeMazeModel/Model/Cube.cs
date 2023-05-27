@@ -22,6 +22,8 @@ namespace CubeMazeModel.Model
             LinkFaces();
         }
 
+        public IReadOnlyDictionary <FaceLocation, Face> Faces => _faces;
+
         private void CreateFaces()
         {
             foreach (var faceLocation in _faces.Keys.ToList())
@@ -38,19 +40,34 @@ namespace CubeMazeModel.Model
 
         private void LinkFacesHorizontal()
         {
-            var horizontalFaceOrder = new Face[]
+            var horizontalFaceOrder1 = new FaceLocation[]
             {
-                _faces[FaceLocation.Front],
-                _faces[FaceLocation.Right],
-                _faces[FaceLocation.Back],
-                _faces[FaceLocation.Left],
-                _faces[FaceLocation.Front]
+                FaceLocation.Front,
+                FaceLocation.Right,
+                FaceLocation.Back,
+                FaceLocation.Left,
+                FaceLocation.Front
             };
 
-            for (int i = 0; i < horizontalFaceOrder.Length - 1; i++)
+            var horizontalFaceOrder2 = new FaceLocation[]
             {
-                var left = horizontalFaceOrder[i];
-                var right = horizontalFaceOrder[i + 1];
+                FaceLocation.Top,
+                FaceLocation.Right,
+                FaceLocation.Bottom,
+                FaceLocation.Left,
+                FaceLocation.Top
+            };
+
+            LinkFacesHorizontal(horizontalFaceOrder1);
+            LinkFacesHorizontal(horizontalFaceOrder2);
+        }
+
+        private void LinkFacesHorizontal(FaceLocation[] horizontalFaceOrder1)
+        {
+            for (int i = 0; i < horizontalFaceOrder1.Length - 1; i++)
+            {
+                var left = _faces[horizontalFaceOrder1[i]];
+                var right = _faces[horizontalFaceOrder1[i + 1]];
 
                 LinkVertical(left, right);
             }
@@ -58,19 +75,34 @@ namespace CubeMazeModel.Model
 
         private void LinkFacesVertical()
         {
-            var verticalFaceOrder = new Face[]
+            var verticalFaceOrder1 = new FaceLocation[]
             {
-                _faces[FaceLocation.Front],
-                _faces[FaceLocation.Bottom],
-                _faces[FaceLocation.Back],
-                _faces[FaceLocation.Top],
-                _faces[FaceLocation.Front]
+                FaceLocation.Front,
+                FaceLocation.Bottom,
+                FaceLocation.Back,
+                FaceLocation.Top,
+                FaceLocation.Front
             };
 
-            for (int i = 0; i < verticalFaceOrder.Length - 1; i++)
+            var verticalFaceOrder2 = new FaceLocation[]
             {
-                var top = verticalFaceOrder[i];
-                var down = verticalFaceOrder[i + 1];
+                FaceLocation.Right,
+                FaceLocation.Bottom,
+                FaceLocation.Left,
+                FaceLocation.Top,
+                FaceLocation.Right
+            };
+
+            LinkFacesVertical(verticalFaceOrder1);
+            LinkFacesVertical(verticalFaceOrder1);
+        }
+
+        private void LinkFacesVertical(FaceLocation[] verticalFaceOrder1)
+        {
+            for (int i = 0; i < verticalFaceOrder1.Length - 1; i++)
+            {
+                var top = _faces[verticalFaceOrder1[i]];
+                var down = _faces[verticalFaceOrder1[i + 1]];
 
                 LinkHorizontal(top, down);
             }
