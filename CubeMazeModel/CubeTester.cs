@@ -17,6 +17,7 @@ namespace CubeMazeModel
         /// <param name="centerOffset">Смещение относительно центра грани.</param>
         /// <param name="moveDirection">Направление перемещения.</param>
         /// <param name="numberOfSteps">Количество шагов до остановки(если не наступим на уже пройденную ячейку).</param>
+        /// <param name="millisecondsStepDelay">Задержка в милисекундах между шагами.</param>
         public static void TestMovement(int cubeSize, FaceLocation faceLocation, Vector2 centerOffset, Direction moveDirection, int numberOfSteps = 100, int millisecondsStepDelay = 500)
         {
             Cube cube = new Cube(cubeSize);
