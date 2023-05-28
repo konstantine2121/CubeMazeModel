@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CubeTester.cs" />
     <Compile Include="Enums\Direction.cs" />
     <Compile Include="Enums\FaceLocation.cs" />
     <Compile Include="Model\BaseCellContainer.cs" />

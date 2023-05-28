@@ -2,110 +2,61 @@
 using CubeMazeModel.Model;
 using CubeMazeModel.Printers;
 using System;
+using System.Linq;
+using System.Numerics;
 using System.Threading;
 
 namespace CubeMazeModel
 {
     internal class Program
     {
+        private const int CubeSize = 3;
+
         static void Main(string[] args)
         {
-            TestMoveUp();   //correct
-            TestMoveLeft(); //error
-            TestMoveUp2();  //exception
+            MakeTest2();
         }
 
-        static void TestMoveUp()
+        static void MakeTest1()
         {
-            Cube cube = new Cube(3);
 
-            var cellPrinter = new CubePrinter(20, 0, cube);
+            CubeTester.TestMovement(CubeSize, FaceLocation.Front, Vector2.Zero, Direction.Up);
+            CubeTester.TestMovement(CubeSize, FaceLocation.Front, Vector2.Zero, Direction.Down);
 
-            var startCell = cube.Center;
 
-            startCell.Visited = true;
-            var steps = 80;
+            CubeTester.TestMovement(CubeSize, FaceLocation.Right, Vector2.Zero, Direction.Up);
+            CubeTester.TestMovement(CubeSize, FaceLocation.Right, Vector2.Zero, Direction.Down);
+            CubeTester.TestMovement(CubeSize, FaceLocation.Left, Vector2.Zero, Direction.Up);
+            CubeTester.TestMovement(CubeSize, FaceLocation.Left, Vector2.Zero, Direction.Down);
+        }
 
-            var currientCell = startCell;
+        static void MakeTest2()
+        {
+            var startOffset = new Vector2(-1, -1);
 
-            for (int i = 1; i < steps; i++)
+            CubeTester.TestMovement(CubeSize, FaceLocation.Front, startOffset, Direction.Up);
+            CubeTester.TestMovement(CubeSize, FaceLocation.Front, startOffset, Direction.Down);
+
+
+            CubeTester.TestMovement(CubeSize, FaceLocation.Right, startOffset, Direction.Up);
+            CubeTester.TestMovement(CubeSize, FaceLocation.Right, startOffset, Direction.Down);
+            CubeTester.TestMovement(CubeSize, FaceLocation.Left, startOffset, Direction.Up);
+            CubeTester.TestMovement(CubeSize, FaceLocation.Left, startOffset, Direction.Down);
+        }
+
+        static void MakeBruteTest()
+        {
+            var faces = Enum.GetValues(typeof(FaceLocation)).Cast<FaceLocation>();
+            var directions = Enum.GetValues(typeof(Direction)).Cast<Direction>();
+
+            foreach (var face in faces) 
             {
-                currientCell = Cube.Move(currientCell, Direction.Up);
-                MoveDelayAndPrintCubeState(cellPrinter);
-                if (currientCell.Visited)
-                {                    
-                    break;
-                }
-                else
+                foreach (var direction in directions) 
                 {
-                    currientCell.Visited = true;                    
+                    CubeTester.TestMovement(CubeSize, face, Vector2.Zero, direction, 100, 100);
                 }
-
             }
         }
 
-        static void TestMoveUp2()
-        {
-            Cube cube = new Cube(3);
-
-            var cellPrinter = new CubePrinter(20, 0, cube);
-
-            var startCell = cube.Faces[FaceLocation.Right].Center;
-
-            startCell.Visited = true;
-            var steps = 80;
-
-            var currientCell = startCell;
-
-            for (int i = 1; i < steps; i++)
-            {
-                currientCell = Cube.Move(currientCell, Direction.Up);
-                MoveDelayAndPrintCubeState(cellPrinter);
-                if (currientCell.Visited)
-                {
-                    break;
-                }
-                else
-                {
-                    currientCell.Visited = true;
-                }
-
-            }
-        }
-
-        static void TestMoveLeft()
-        {
-            Cube cube = new Cube(3);
-
-            var cellPrinter = new CubePrinter(20, 0, cube);
-
-            var startCell = cube.Center;
-
-            startCell.Visited = true;
-            var steps = 80;
-
-            var currientCell = startCell;
-
-            for (int i = 1; i < steps; i++)
-            {
-                currientCell = Cube.Move(currientCell, Direction.Left);
-                MoveDelayAndPrintCubeState(cellPrinter);
-                if (currientCell.Visited)
-                {
-                    break;
-                }
-                else
-                {
-                    currientCell.Visited = true;
-                }
-
-            }
-        }
-
-        static void MoveDelayAndPrintCubeState(CubePrinter cubePrinter)
-        {
-            Thread.Sleep(200);
-            cubePrinter.Print();
-        }
     }
 }
